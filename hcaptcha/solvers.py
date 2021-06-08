@@ -86,9 +86,7 @@ class Solver:
             for task in answers:
                 task_id = task_to_id[task]
                 task_score = self._get_task_score(task_id)
-                if 100 > task_score and token:
-                    self._increment_task_score(task_id, 100)
-                elif task_score > 0:
-                    self._increment_task_score(task_id, -1)
+                if token:
+                    self._increment_task_score(task_id, 1)
             
         return token
