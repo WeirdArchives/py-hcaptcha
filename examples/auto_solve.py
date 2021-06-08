@@ -39,7 +39,7 @@ def thread_func(worker_num, thread_num, thread_barrier, thread_event,
             "http": f"http://{proxy}",
             "https": f"http://{proxy}"
         }, timeout=5)
-
+        
         while True:
             try:
                 token = solver.get_token(
@@ -58,6 +58,8 @@ def thread_func(worker_num, thread_num, thread_barrier, thread_event,
             except Exception as err:
                 print(F"Solver error: {err!r}")
                 break
+        
+        http_client.clear()
 
 def worker_func(worker_num, worker_barrier, proxies):
     # calculate cpu core based on worker number
