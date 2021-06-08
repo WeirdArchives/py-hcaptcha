@@ -25,10 +25,8 @@ def do_stuff_with_token(token, http_client, proxy):
     print(f"Obtained token: {token[:20]} ..")
 
 def thread_func(worker_num, thread_num, thread_barrier, thread_event,
-                proxies):
+                proxies, solver):
     # initialize thread
-    proxies = itertools.cycle(proxies)
-    solver = hcaptcha.Solver(**SOLVER_PARAMS)
 
     # wait for other threads and workers
     thread_barrier.wait()
@@ -68,13 +66,15 @@ def worker_func(worker_num, worker_barrier, proxies):
     win32process.SetProcessAffinityMask(-1, 1 << cpu_num)
     
     # create threads
+    proxies = itertools.cycle(proxies)
+    solver = hcaptcha.Solver(**SOLVER_PARAMS)
     thread_barrier = threading.Barrier(THREAD_COUNT_PER_WORKER + 1)
     thread_event = threading.Event()
     threads = [
         threading.Thread(
             target=thread_func,
             args=(worker_num, thread_num, thread_barrier, thread_event,
-                  proxies)
+                  proxies, solver)
         )
         for thread_num in range(THREAD_COUNT_PER_WORKER)
     ]
