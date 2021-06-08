@@ -21,9 +21,8 @@ An example script for solving is available at [auto_solve.py](https://github.com
 ### Solver(database=None, collect_data=True, min_answers=1, max_tasks=0, debug=False)
 - `database`: `redis.Redis` instance.
 - `collect_data`: Will attempt to collect new data if enabled.
-- `min_answers`: Minimum number of answers for a challenge. Will fill blanks spots with random guesses.
-- `max_tasks`: Maximum number of answers for a challenge. Will skip challenges that are above set amount.
-- `debug`:
+- `min_answers`: Min. number of answers for a challenge. Will fill blanks spots with random guesses.
+- `max_tasks`: Max. number of answers for a challenge. Will skip challenges that are above set amount.
 
 ### Solver.get_token(sitekey, page_url, http_client2=None, **challenge_kwargs)
 Creates challenge based on parameters and attempts to solve it. Returns token if valid.
