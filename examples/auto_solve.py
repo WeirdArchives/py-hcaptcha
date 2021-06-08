@@ -26,8 +26,6 @@ def do_stuff_with_token(token, http_client, proxy):
 
 def thread_func(worker_num, thread_num, thread_barrier, thread_event,
                 proxies, solver):
-    # initialize thread
-
     # wait for other threads and workers
     thread_barrier.wait()
     thread_event.wait()
