@@ -1,0 +1,6 @@
+pytweening
+pillow
+requests
+imagehash
+selenium
+redis
