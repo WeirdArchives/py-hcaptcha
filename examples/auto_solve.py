@@ -5,7 +5,9 @@
 
 import threading
 import multiprocessing
-import win32process
+import os
+if os.name == "nt":
+    import win32process
 import itertools
 import hcaptcha
 import xrequests
@@ -61,7 +63,10 @@ def worker_func(worker_num, worker_barrier, proxies):
     # calculate cpu core based on worker number
     cpu_num = worker_num % multiprocessing.cpu_count()
     # set cpu core to be used for this process
-    win32process.SetProcessAffinityMask(-1, 1 << cpu_num)
+    if os.name == "nt":
+        win32process.SetProcessAffinityMask(-1, 1 << cpu_num)
+    else:
+        os.sched_setaffinity(0, [cpu_num])
     
     # create threads
     proxies = itertools.cycle(proxies)
