@@ -38,9 +38,10 @@ class Task:
 
 
 class ExampleTask:
-    def __init__(self, task_obj, challenge=None):
+    def __init__(self, task_obj, challenge=None, task_key):
         self.challenge = challenge
         self.image_url = task_obj
+        self.key = task_key 
     
     def _request(self, url, method="GET", http_client=None):
         http_client = http_client if http_client is not None \

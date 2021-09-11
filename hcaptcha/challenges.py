@@ -1,5 +1,6 @@
 from . import temp
 from .models import Task
+import uuid
 from .models import ExampleTask
 from .exceptions import HCaptchaError, ApiError
 from .agents import random_agent
@@ -203,7 +204,7 @@ class Challenge:
         self.type = data["request_type"]
         self.question = data["requester_question"]["en"]
         self.tasks = [Task(t, self) for t in data["tasklist"]]
-        self.example_answers = [ExampleTask(t, self) for t in data["requester_question_example"]]
+        self.example_answers = [ExampleTask(t, self, str(uuid.uuid4())) for t in data["requester_question_example"]]
 
     def _get_proof(self):
         if self._spec["type"] == "hsw":
