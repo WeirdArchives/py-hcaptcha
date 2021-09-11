@@ -16,7 +16,11 @@ wd_opt.add_argument("start-maximized")
 wd_opt.add_argument("--headless")
 wd_opt.add_experimental_option("excludeSwitches", ["enable-automation"])
 wd_opt.add_experimental_option('useAutomationExtension', False)
-wd = webdriver.Chrome(chrome_options=wd_opt)
+service_log_path = "~/chromedriver.log"
+service_args = ['--verbose']
+wd = webdriver.Chrome(chrome_options=wd_opt,
+        service_args=service_args,
+        service_log_path=service_log_path)
 atexit.register(lambda *_: wd.quit())
 
 with open(dirname(__file__) + "/js/hsw.js") as fp:
