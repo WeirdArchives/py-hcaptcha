@@ -35,3 +35,35 @@ class Task:
         phash = str(imagehash.phash(image, size))
         self._phash = phash
         return phash
+
+
+class ExampleTask:
+    def __init__(self, task_obj, challenge=None):
+        self.challenge = challenge
+        self.image_url = task_obj
+    
+    def _request(self, url, method="GET", http_client=None):
+        http_client = http_client if http_client is not None \
+                      else self.challenge.http_client
+        return http_client.request(
+            method,
+            url,
+            headers={"Accept-Encoding": "gzip, deflate, br"}
+        )
+    
+    #@cache_forever()
+    def content(self, **kw) -> bytes:
+        resp = self._request(self.image_url, **kw)
+        return resp.content
+    
+    #@cache_forever()
+    def image(self, **kw) -> Image.Image:
+        content = self.content(**kw)
+        return Image.open(BytesIO(content))
+
+    #@cache_forever()
+    def phash(self, size=16, **kw) -> str:
+        image = self.image(**kw)
+        phash = str(imagehash.phash(image, size))
+        self._phash = phash
+        return phash
