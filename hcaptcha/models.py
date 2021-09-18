@@ -38,7 +38,7 @@ class Task:
 
 
 class ExampleTask:
-    def __init__(self, task_obj, challenge=None, task_key):
+    def __init__(self, task_obj, task_key, challenge=None):
         self.challenge = challenge
         self.image_url = task_obj
         self.key = task_key 

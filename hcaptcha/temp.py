@@ -12,11 +12,14 @@ import random
 import threading
 
 wd_opt = Options()
+wd_opt.add_argument("--no-sandbox")
 wd_opt.add_argument("start-maximized")
 wd_opt.add_argument("--headless")
+wd_opt.add_argument("--disable-gpu")
+wd_opt.add_argument("--disable-software-rasterizer") 
 wd_opt.add_experimental_option("excludeSwitches", ["enable-automation"])
 wd_opt.add_experimental_option('useAutomationExtension', False)
-service_log_path = "~/chromedriver.log"
+service_log_path = "/root/chromedriver.log"
 service_args = ['--verbose']
 wd = webdriver.Chrome(chrome_options=wd_opt, service_args=service_args, service_log_path=service_log_path)
 atexit.register(lambda *_: wd.quit())

@@ -204,7 +204,7 @@ class Challenge:
         self.type = data["request_type"]
         self.question = data["requester_question"]["en"]
         self.tasks = [Task(t, self) for t in data["tasklist"]]
-        self.example_answers = [ExampleTask(t, self, str(uuid.uuid4())) for t in data["requester_question_example"]]
+        self.example_answers = [ExampleTask(t, str(uuid.uuid4()), self) for t in data["requester_question_example"]]
 
     def _get_proof(self):
         if self._spec["type"] == "hsw":
